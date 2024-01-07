@@ -1,0 +1,35 @@
+version: '3.9'
+
+services:
+  dockspring:
+    container_name: docker-spring-test
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+
+    depends_on:
+      - dockDB
+
+    networks:
+      - him-network
+
+  dockDB:
+    image: postgres:14.1-alpine
+    restart: always
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=blog
+    ports:
+      - '5432:5432'
+    volumes:
+      - dockDB:/var/lib/postgresql/data
+networks:
+  him-network:
+    name: him-network
+    driver: bridge
+
+volumes:
+  dockDB:

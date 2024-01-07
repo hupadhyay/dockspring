@@ -29,6 +29,7 @@ dependencies {
 //	developmentOnly 'org.springframework.boot:spring-boot-docker-compose'
 	annotationProcessor 'org.projectlombok:lombok:1.18.30'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	runtimeOnly 'org.postgresql:postgresql:42.7.1'
 }
 
 tasks.named('test') {
