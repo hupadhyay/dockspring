@@ -5,7 +5,7 @@ COPY . /home/app
 
 RUN gradle clean build
 
-# Build an image
+# Build an service image
 FROM jyckbase/java21
 MAINTAINER himanshu2703@gmail.com
 EXPOSE 8080

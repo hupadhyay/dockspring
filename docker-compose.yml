@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   dockspring:
-    container_name: docker-spring-test
+    container_name: docker-spring-api
     build:
       context: .
       dockerfile: Dockerfile
@@ -11,12 +11,14 @@ services:
 
     depends_on:
       - dockDB
+      - rabbit
 
     networks:
       - him-network
 
   dockDB:
     image: postgres:14.1-alpine
+    container_name: dock-spring-db
     restart: always
     environment:
       - POSTGRES_USER=postgres
@@ -26,6 +28,19 @@ services:
       - '5432:5432'
     volumes:
       - dockDB:/var/lib/postgresql/data
+    networks:
+      - him-network
+
+  rabbit:
+    image: rabbitmq:3.9-management
+    container_name: rabbit
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+      - "15692:15692"
+    networks:
+      - him-network
+
 networks:
   him-network:
     name: him-network
