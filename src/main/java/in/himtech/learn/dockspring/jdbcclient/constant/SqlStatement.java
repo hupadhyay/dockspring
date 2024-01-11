@@ -1,4 +1,4 @@
-package in.himtech.learn.dockspring.restclient.constant;
+package in.himtech.learn.dockspring.jdbcclient.constant;
 
 public class SqlStatement {
 

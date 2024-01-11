@@ -1,7 +1,7 @@
-package in.himtech.learn.dockspring.restclient.repository;
+package in.himtech.learn.dockspring.jdbcclient.repository;
 
-import in.himtech.learn.dockspring.restclient.constant.SqlStatement;
-import in.himtech.learn.dockspring.restclient.model.Course;
+import in.himtech.learn.dockspring.jdbcclient.constant.SqlStatement;
+import in.himtech.learn.dockspring.jdbcclient.model.Course;
 import org.springframework.jdbc.core.simple.JdbcClient;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.Assert;

@@ -1,8 +1,7 @@
-package in.himtech.learn.dockspring.restclient.service;
+package in.himtech.learn.dockspring.jdbcclient.service;
 
-import in.himtech.learn.dockspring.restclient.model.Course;
-import in.himtech.learn.dockspring.restclient.repository.CourseRepository;
-import org.springframework.http.ResponseEntity;
+import in.himtech.learn.dockspring.jdbcclient.model.Course;
+import in.himtech.learn.dockspring.jdbcclient.repository.CourseRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

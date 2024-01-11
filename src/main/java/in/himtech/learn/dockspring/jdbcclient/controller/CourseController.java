@@ -1,7 +1,7 @@
-package in.himtech.learn.dockspring.restclient.controller;
+package in.himtech.learn.dockspring.jdbcclient.controller;
 
-import in.himtech.learn.dockspring.restclient.model.Course;
-import in.himtech.learn.dockspring.restclient.service.CourseService;
+import in.himtech.learn.dockspring.jdbcclient.model.Course;
+import in.himtech.learn.dockspring.jdbcclient.service.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

@@ -1,4 +1,4 @@
-package in.himtech.learn.dockspring.restclient.model;
+package in.himtech.learn.dockspring.jdbcclient.model;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
