@@ -2,7 +2,7 @@ name: CI/CD for application
 
 on:
   schedule:
-    - cron: 0 * * * *
+    - cron: 0 0 * * SUN
   workflow_dispatch:
     inputs:
       message:
