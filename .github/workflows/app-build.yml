@@ -3,6 +3,11 @@ name: CI/CD for application
 on:
   schedule:
     - cron: 0 * * * *
+  workflow_dispatch:
+    inputs:
+      message:
+        description: "Reason for manually triggering the build"
+        required: true
 
 jobs:
   run-hello-word:
