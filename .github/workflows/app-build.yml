@@ -1,0 +1,12 @@
+name: CI/CD for application
+
+on:
+  schedule:
+    - cron: 0 * * * *
+
+jobs:
+  run-hello-word:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Hello World"
+
