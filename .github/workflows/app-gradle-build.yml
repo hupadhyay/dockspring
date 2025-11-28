@@ -1,4 +1,4 @@
-name: Simple Github Action WorkFlow
+name: Gradle build Java Project
 
 on:
   push:
