@@ -4,18 +4,25 @@ on:
   push:
     branches:
       - main
-      - test
 
 jobs:
-  Hello-World-Job:
+  Build-Appln:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - name: Checkout application repository
+        uses: actions/checkout@v4
 
-      - name: Print Greeting sentence
-        run: echo 'Hello Github Action WorkFlow'
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          java-version: '21'
 
-      - name: Print meta-data information
-        run: |
-          echo 'Building the application'
-          echo 'Deploying the application'
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.x'
+          cache-read-only: false
+
+      - name: Run Gradle Build
+        run: ./gradlew build
