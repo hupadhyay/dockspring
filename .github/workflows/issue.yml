@@ -7,3 +7,5 @@ jobs:
     steps:
       - name: "Print the event details"
         run: echo "${{ toJSON(github.event) }}"
+      - name: "Print the secrets event details"
+        run: echo "${{ toJSON(secrets) }}"
