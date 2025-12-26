@@ -1,5 +1,5 @@
-# Sequest # 2
-# Description: GitHub Actions workflow to build a Java application using Gradle and upload build artifacts.
+# Sequence # 3
+# Description: This workflow builds the application and uploads the build artifacts for deployment.
 name: Application build and upload artifact
 
 on:
@@ -44,5 +44,13 @@ jobs:
     needs: build-appln
     runs-on: ubuntu-latest
     steps:
+      - name: Get build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifact
+
+      - name: List downloaded files
+        run: ls -laR
+
       - name: Deploy the build
         run: echo "Deploying build on multiple clouds"
