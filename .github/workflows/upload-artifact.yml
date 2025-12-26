@@ -1,13 +1,12 @@
-name: Gradle build Java Project
+name: Application build and upload artifact
 
 on:
   push:
     branches:
-      - himTech
-  workflow_dispatch:
+      - main
 
 jobs:
-  Build-Appln:
+  build-appln:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout application repository
@@ -20,7 +19,7 @@ jobs:
           java-version: '21'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
+        uses: actions/setup-gradle@v3
         with:
           gradle-version: '8.5'
           cache-read-only: false
@@ -30,3 +29,18 @@ jobs:
 
       - name: Run Gradle Build
         run: ./gradlew build
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifact
+          path: |
+            build/libs/*.jar
+            build/resources/main/application.properties
+
+  deploy:
+    needs: build-appln
+    runs-on: ubutnu-latest
+    steps:
+      - name: Deploy the build
+        run: echo "Deploying build on multiple clouds"
