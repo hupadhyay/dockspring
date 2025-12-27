@@ -6,6 +6,7 @@ on:
   push:
     branches:
       - himTech
+  workflow_dispatch:
 
 jobs:
   build-appln:

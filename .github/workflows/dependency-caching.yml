@@ -1,16 +1,18 @@
-# Sequence # 3
-# Description: This workflow builds the application and uploads the build artifacts for deployment.
+# Sequence # 4
+# Description: This workflow builds the application and read the generated jarfile name.
 name: Application build and upload artifact
 
 on:
   push:
     branches:
-      - himTech
+      - main
   workflow_dispatch:
 
 jobs:
   build-appln:
     runs-on: ubuntu-latest
+    outputs:
+      jar_file: ${{ steps.read_jar.outputs.jar_file }}
     steps:
       - name: Checkout application repository
         uses: actions/checkout@v4
@@ -30,8 +32,25 @@ jobs:
       - name: Change gradle permission
         run: chmod +x ./gradlew
 
+      - name: Caching Gradle Dependencies
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Run Gradle Build
         run: ./gradlew build
+
+      - name: Read generated jar file name
+        id: read_jar
+        run: |
+          JAR_FILE=$(find build/libs/*-SNAPSHOT.jar -type f -execdir echo {} \;)
+          echo "Generated JAR file: $JAR_FILE"
+          echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
 
       - name: Upload artifact
         uses: actions/upload-artifact@v4
@@ -52,6 +71,9 @@ jobs:
 
       - name: List downloaded files
         run: ls -laR
+
+      - name: Show jar file name
+        run: echo "Jar file name is ${{ needs.build-appln.outputs.jar_file }}"
 
       - name: Deploy the build
         run: echo "Deploying build on multiple clouds"

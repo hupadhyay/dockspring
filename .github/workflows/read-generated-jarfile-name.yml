@@ -5,7 +5,8 @@ name: Application build and upload artifact
 on:
   push:
     branches:
-      - main
+      - himTech
+  workflow_dispatch:
 
 jobs:
   build-appln:
