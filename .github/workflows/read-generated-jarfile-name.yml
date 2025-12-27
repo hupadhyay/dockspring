@@ -37,7 +37,7 @@ jobs:
       - name: Read generated jar file name
         id: read_jar
         run: |
-          JAR_FILE=$(ls build/libs/*-SNAPSHOT.jar)
+          JAR_FILE=$(find build/libs/*-SNAPSHOT.jar -type f -execdir echo '{}')
           echo "Generated JAR file: $JAR_FILE"
           echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
 
