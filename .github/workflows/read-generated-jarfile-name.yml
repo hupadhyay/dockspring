@@ -39,7 +39,6 @@ jobs:
         run: |
           JAR_FILE=$(ls build/libs/*-SNAPSHOT.jar)
           echo "Generated JAR file: $JAR_FILE"
-#          echo "::set-output name=jar_file::$JAR_FILE"
           echo "jar_file=$JAR_FILE" >> $GITHUB_OUTPUT
 
       - name: Upload artifact
