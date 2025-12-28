@@ -1,6 +1,6 @@
-# Sequence # 3
+# Sequence # 6
 # Description: This workflow builds the application and uploads the build artifacts for deployment.
-name: download application artifact
+name: Environment Variable Definition
 
 on:
   push:
@@ -8,9 +8,19 @@ on:
       - himTech
   workflow_dispatch:
 
+# Define environment variables at the workflow level
+env:
+  APP_ENV: production
+  API_KEY: ${{ secrets.API_KEY }}
+
 jobs:
   build-appln:
     runs-on: ubuntu-latest
+    # Define environment variables at the job level
+    env:
+        BUILD_ENV: ${{ env.APP_ENV }}
+        DB_NAME: my_database
+        DB_USER: admin
     steps:
       - name: Checkout application repository
         uses: actions/checkout@v4
@@ -40,10 +50,19 @@ jobs:
           path: |
             build/libs/*.jar
             build/resources/main/application.properties
+      - name: Display environment variables
+        run: |
+          echo "APP_ENV is $APP_ENV"
+          echo "BUILD_ENV is $BUILD_ENV"
+          echo "DB_NAME is $DB_NAME"
+          echo "DB_USER is $DB_USER"
+          echo "API_KEY is $API_KEY"
+# To access environment variable, the format ${{ env.APP_ENV }} can also be used in the above step
 
   deploy:
     needs: build-appln
     runs-on: ubuntu-latest
+
     steps:
       - name: Get build artifact
         uses: actions/download-artifact@v4
@@ -55,3 +74,12 @@ jobs:
 
       - name: Deploy the build
         run: echo "Deploying build on multiple clouds"
+      - name: Display environment variables in deploy job
+        run: |
+          echo "APP_ENV is $APP_ENV"
+          echo "API_KEY is $API_KEY"
+          echo "BUILD_ENV is $BUILD_ENV"
+          echo "DB_NAME is $DB_NAME"
+          echo "DB_USER is $DB_USER"
+# This will print only APP_ENV and API_KEY as they are defined at the workflow level.
+# BUILD_ENV, DB_NAME, and DB_USER are not accessible here as they are defined at the job level in the build-appln job.

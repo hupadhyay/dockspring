@@ -5,8 +5,9 @@
 ## Demo of Spring-Security using JWT
 
 # GitHub Actions CI/CD Pipeline
-## Java Application Building and Testing with Gradle (app-gradle-build.yml)
-## Upload the artifact to github space (upload-artifact.yml)
-## Upload and download the artifact for deployment (downlod-artifact.yml)
-## Read the jar file from github space and print into console in another job (read-generated-jarfile-name.yml)
-## Cache Gradle dependencies to speed up build times (dependency-caching.yml)
+## 1. Java Application Building and Testing with Gradle (app-gradle-build.yml)
+## 2. Upload the artifact to github space (upload-artifact.yml)
+## 3. Upload and download the artifact for deployment (downlod-artifact.yml)
+## 4. Read the jar file from github space and print into console in another job (read-generated-jarfile-name.yml)
+## 5. Cache Gradle dependencies to speed up build times (dependency-caching.yml)
+## 6. Definition of environment variable at job and workflow level (env-variable.yml)

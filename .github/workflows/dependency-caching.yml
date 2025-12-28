@@ -1,6 +1,6 @@
 # Sequence # 4
 # Description: This workflow builds the application and read the generated jarfile name.
-name: Application build and upload artifact
+name: Dependencies Caching
 
 on:
   push:
