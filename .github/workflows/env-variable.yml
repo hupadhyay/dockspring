@@ -12,16 +12,16 @@ on:
 env:
   APP_ENV: production
   API_KEY: ${{ secrets.API_KEY }}
+  DB_PROVIDER: MySQL
 
 jobs:
   build-appln:
-    # Define environment variables at the job level. It must be defined before runs-on
+    runs-on: ubuntu-latest
+    # Define environment variables at the job level. This will override any workflow level env variables with the same name.
     env:
-      BUILD_ENV: ${{ env.APP_ENV }}
       DB_NAME: my_database
       DB_USER: admin
-
-    runs-on: ubuntu-latest
+      DB_PROVIDER: PostgreSQL
 
     steps:
       - name: Checkout application repository
@@ -55,7 +55,7 @@ jobs:
       - name: Display environment variables
         run: |
           echo "APP_ENV is $APP_ENV"
-          echo "BUILD_ENV is $BUILD_ENV"
+          echo "DB_PROVIDER is $DB_PROVIDER"
           echo "DB_NAME is $DB_NAME"
           echo "DB_USER is $DB_USER"
           echo "API_KEY is $API_KEY"
@@ -80,7 +80,7 @@ jobs:
         run: |
           echo "APP_ENV is $APP_ENV"
           echo "API_KEY is $API_KEY"
-          echo "BUILD_ENV is $BUILD_ENV"
+          echo "DB_PROVIDER is $DB_PROVIDER"
           echo "DB_NAME is $DB_NAME"
           echo "DB_USER is $DB_USER"
 # This will print only APP_ENV and API_KEY as they are defined at the workflow level.
