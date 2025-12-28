@@ -15,12 +15,14 @@ env:
 
 jobs:
   build-appln:
-    runs-on: ubuntu-latest
-    # Define environment variables at the job level
+    # Define environment variables at the job level. It must be defined before runs-on
     env:
-        BUILD_ENV: ${{ env.APP_ENV }}
-        DB_NAME: my_database
-        DB_USER: admin
+      BUILD_ENV: ${{ env.APP_ENV }}
+      DB_NAME: my_database
+      DB_USER: admin
+
+    runs-on: ubuntu-latest
+
     steps:
       - name: Checkout application repository
         uses: actions/checkout@v4
