@@ -11,3 +11,8 @@
 ## 4. Read the jar file from github space and print into console in another job (read-generated-jarfile-name.yml)
 ## 5. Cache Gradle dependencies to speed up build times (dependency-caching.yml)
 ## 6. Definition of environment variable at job and workflow level (env-variable.yml)
+## 7. Using GitHub Secrets in Workflows (github-secrets.yml)
+![img.png](mdImage/img.png)
+
+## 8. Using Github Sectets environment-wise (evironment-secrets.yml).
+![img_1.png](mdImage/img_1.png)
