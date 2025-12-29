@@ -5,7 +5,7 @@ name: Dependencies Caching
 on:
   push:
     branches:
-      - main
+      - himTech
   workflow_dispatch:
 
 jobs:
