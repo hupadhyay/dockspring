@@ -37,7 +37,7 @@ jobs:
         run: ./gradlew test
 
       - name: Upload test reports (artifact)
-        if: failured() && steps.run_tests.outcome == 'failure'
+        if: failure() && steps.run_tests.outcome == 'failure'
         # Upload test reports only if tests fail in previous step 'run_tests'
         # failure() is a github action function that returns true if any of the previous steps have failed.
         uses: actions/upload-artifact@v4
