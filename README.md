@@ -16,3 +16,4 @@
 
 ## 8. Using Github Sectets environment-wise (evironment-secrets.yml).
 ![img_1.png](mdImage/img_1.png)
+## 9. Using of if statement and special conditional methods (conditional-build-test.yml)

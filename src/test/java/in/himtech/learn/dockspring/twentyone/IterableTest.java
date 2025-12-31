@@ -21,4 +21,9 @@ public class IterableTest {
 
         Assertions.assertIterableEquals(list, list2);
     }
+
+    @Test
+    public void testArrayListFailure(){
+        Assertions.fail("Not yet implemented");
+    }
 }
