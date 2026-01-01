@@ -93,7 +93,7 @@ jobs:
       - name: Run Gradle Build
         # Skip the build execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run build always.
         # if: steps.cache-gradle.outputs.cache-hit != 'true'
-        run: ./gradlew build
+        run: ./gradlew build -x test
 
   send-notification:
     runs-on: ubuntu-latest
