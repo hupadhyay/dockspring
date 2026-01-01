@@ -1,0 +1,53 @@
+# Sequest # 1
+# Description: GitHub Actions workflow to build a Java application using Gradle.
+name: Matrix Strategy Build
+
+on:
+  push:
+    branches:
+      - himTech
+  workflow_dispatch:
+
+jobs:
+  build-appln:
+    # The continue-on-error help to run all the matrix combinations even if one fails
+    continue-on-error: true
+    # Define a matrix strategy to run the job on multiple OS and Java versions. The four job combinations will be:
+    # 1. ubuntu-latest with Java 21
+    # 2. ubuntu-latest with Java 25
+    # 3. windows-latest with Java 21
+    # 4. windows-latest with Java 25
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        java: ['21', '25']
+        include:
+          - os: ubuntu-latest
+            java: '17'
+        exclude:
+          - os: windows-latest
+            java: '25'
+    # Each job will run on the specified OS from the matrix
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v4
+
+      - name: Setup Java
+        uses: actions/setup-java@v5
+        with:
+          distribution: 'temurin'
+          # Set the Java version from the matrix
+          java-version: ${{ matrix.java }}
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+        with:
+          gradle-version: '8.5'
+          cache-read-only: false
+
+      - name: Change gradle permission
+        run: chmod +x ./gradlew
+
+      - name: Run Gradle Build
+        run: ./gradlew build -x test
