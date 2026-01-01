@@ -1,8 +1,7 @@
-# Sequence # 9
-# Description: Demostrating conditiona execution of Github Action workflow.
-# The If conditional statement is used to control execution of job or steps based on the outcome of the given condition.concurrency.
-# The github action doesn't have 'else-if' or else keywords to create complex conditional statements.
-name: Conditional Build and Test
+# Sequence # 10
+# Description: Demonstrating enhanced caching with conditional execution of Github Action workflow.
+# Continue-on-error is used to run the next steps even if the current step fails.
+name: Enhanced Caching
 
 on:
   push:
@@ -32,15 +31,26 @@ jobs:
       - name: Change gradle permission
         run: chmod +x ./gradlew
 
+      - name: Caching Gradle Dependencies
+        id: cache-gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Run Gradle tests
+        # Skip the test execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run tests always.
+        # if: steps.cache-gradle.outputs.cache-hit != 'true'
+        # Using continue-on-error to proceed to the next step even if tests fail
+        continue-on-error: true
         id: run_tests
         run: ./gradlew test
 
       - name: Upload test reports (artifact)
-        if: failure() && steps.run_tests.outcome == 'failure'
-        # Upload test reports only if tests fail in previous step 'run_tests'
-        # failure() is a github action function that returns true if any of the previous steps have failed.
-        # The default behavior of the job is to stop executing further steps if any step fails.The failure() function helps to override this behavior.
         uses: actions/upload-artifact@v4
 
         with:
@@ -69,20 +79,26 @@ jobs:
       - name: Change gradle permission
         run: chmod +x ./gradlew
 
+      - name: Caching Gradle Dependencies
+        id: cache-gradle
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            ${{ runner.os }}-gradle-
+
       - name: Run Gradle Build
+        # Skip the build execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run build always.
+        # if: steps.cache-gradle.outputs.cache-hit != 'true'
         run: ./gradlew build
 
   send-notification:
     runs-on: ubuntu-latest
-    # failure() is a github action function that returns true if any of the previous steps/jobs have failed.
     if: failure()
     needs: build-appln
     steps:
       - name: Send failure notification
         run: echo "Build failed!"
-
-# Special conditional functions available in GitHub Actions:
-# success(): Returns true if all previous steps/jobs have succeeded.
-# failure(): Returns true if any previous steps/jobs have failed.
-# always(): Returns true regardless of the outcome of previous steps/jobs.
-# cancelled(): Returns true if the workflow run was cancelled.
