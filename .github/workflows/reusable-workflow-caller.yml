@@ -53,4 +53,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Deployment Status
-        run: ${{ needs.deploy-appln.outputs.deployment-status }}
+        run: echo "${{ needs.deploy-appln.outputs.deployment-status }}"
