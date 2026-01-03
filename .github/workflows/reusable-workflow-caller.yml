@@ -33,7 +33,24 @@ jobs:
       - name: Run Gradle Build
         run: ./gradlew build
 
+    # Upload build artifacts to Github space
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: appln-artifact
+          path: build/libs/*-SNAPSHOT.jar
+
   deploy-appln:
     needs: build-appln
     # Calling the reusable workflow defined in .github/workflows/reusable-workflow.yml
     uses: ./.github/workflows/reusable-workflow.yml
+    with:
+      artifact-name: 'appln-artifact'
+
+#  Print the deployment status returned by the reusable workflow
+  print-status:
+    needs: deploy-appln
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print Deployment Status
+        run: ${{ needs.deploy-appln.outputs.deployment-status }}

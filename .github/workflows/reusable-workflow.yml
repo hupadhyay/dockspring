@@ -4,12 +4,34 @@ name: Reusable Workflow
 on:
 # The event `workflow_call` enables this workflow to be called by other workflows
   workflow_call:
+    inputs:
+      artifact-name:
+        description: 'Name of the artifact to download'
+        required: false
+        default: 'appln-artifact'
+        type: string
+    outputs:
+      deployment-status:
+        description: 'Status of the deployment'
+        value: ${{ jobs.deploy.outputs.job-status }}
 
 jobs:
   deploy:
+    outputs:
+        job-status: ${{ steps.set-deployment-status.outputs.deployment-status }}
     runs-on: ubuntu-latest
     steps:
+      - name: Get the build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          # Using the input parameter passed from the calling workflow
+          name: ${{ inputs.artifact-name }}
+
       - name: Deploy Application
         run: |
           echo "Deploying application..."
           echo "Called by other workflow."
+
+      - name: Set deployment status
+        id: set-deployment-status
+        run: echo "deployment-status=success" >> $GITHUB_OUTPUT
