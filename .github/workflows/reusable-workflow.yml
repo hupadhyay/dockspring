@@ -1,0 +1,15 @@
+# Sequence $ 12: Reusable Workflow Definition
+
+name: Reusable Workflow
+on:
+# The event `workflow_call` enables this workflow to be called by other workflows
+  workflow_call:
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy Application
+        run: |
+          echo "Deploying application..."
+          echo "Called by other workflow."

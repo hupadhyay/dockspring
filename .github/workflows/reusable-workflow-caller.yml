@@ -1,18 +1,18 @@
-# Sequence # 1
-# Description: GitHub Actions workflow to build a Java application using Gradle.
-name: Gradle build Java Project
+# Sequence # 12 : Calling of Reusable Workflow
+
+name: Using of Reusable Workflow
 
 on:
   push:
     branches:
-      - himTech
-  workflow_dispatch:
+      - himtech
+    workflow_dispatch:
 
 jobs:
   build-appln:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout application repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Setup Java
@@ -32,3 +32,8 @@ jobs:
 
       - name: Run Gradle Build
         run: ./gradlew build
+
+  deploy-appln:
+    needs: build-appln
+    # Calling the reusable workflow defined in .github/workflows/reusable-workflow.yml
+    uses: ./.github/workflows/reusable-workflow.yml
