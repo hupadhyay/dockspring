@@ -35,7 +35,7 @@ jobs:
 
     # Upload build artifacts to Github space
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: appln-artifact
           path: build/libs/*-SNAPSHOT.jar
