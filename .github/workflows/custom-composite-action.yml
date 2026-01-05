@@ -1,0 +1,57 @@
+# Sequence # 13
+# Description: Using local custom composite action in the workflow.
+name: Enhanced Caching
+
+on:
+  push:
+    branches:
+      - himTech
+  workflow_dispatch:
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v4
+
+      - name: Setup and cache Gradle dependencies
+        uses: ./.github/actions/composite-action
+
+      - name: Run Gradle tests
+        # Skip the test execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run tests always.
+        # if: steps.cache-gradle.outputs.cache-hit != 'true'
+        # Using continue-on-error to proceed to the next step even if tests fail
+        continue-on-error: true
+        id: run_tests
+        run: ./gradlew test
+
+      - name: Upload test reports (artifact)
+        uses: actions/upload-artifact@v4
+
+        with:
+           name: test-reports
+           path: build/reports/tests
+
+  build-appln:
+    runs-on: ubuntu-latest
+    needs: run-tests
+    steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v4
+
+      - name: Setup and cache Gradle dependencies
+        uses: ./.github/actions/composite-action
+
+      - name: Run Gradle Build
+        # Skip the build execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run build always.
+        # if: steps.cache-gradle.outputs.cache-hit != 'true'
+        run: ./gradlew build -x test
+
+  send-notification:
+    runs-on: ubuntu-latest
+    if: failure()
+    needs: build-appln
+    steps:
+      - name: Send failure notification
+        run: echo "Build failed!"

@@ -1,0 +1,33 @@
+name: setup and cache action
+description: 'A composite action to demonstrate usage of composite actions in GitHub Actions'
+
+runs:
+  using: 'composite'
+  steps:
+    - name: Setup Java
+      uses: actions/setup-java@v5
+      with:
+        distribution: 'temurin'
+        java-version: '21'
+
+    - name: Setup Gradle
+      uses: gradle/actions/setup-gradle@v3
+      with:
+        gradle-version: '8.5'
+        cache-read-only: false
+
+    - name: Change gradle permission
+      run: chmod +x ./gradlew
+      # whenever 'run' property is used, we need to define in which prompt the run command to execute. selecting 'bash'
+      shell: bash
+
+    - name: Caching Gradle Dependencies
+      id: cache-gradle
+      uses: actions/cache@v4
+      with:
+        path: |
+          ~/.gradle/caches
+          ~/.gradle/wrapper
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-gradle-

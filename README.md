@@ -20,3 +20,4 @@
 ### 10. Enhance caching using of conditional methods (conditional-caching.yml)
 ### 11. Using of GitHub Actions Matrix strategy for multiple JDK versions and OS (matrix-strategy.yml)
 ### 12. Demonstration of reusable workflows (reusable-workflow.yml, reusable-workflow-caller.yml)
+### 13. Custom Composite Actions (custom-composite-action.yml, actjions/composite-action/action.yml)
