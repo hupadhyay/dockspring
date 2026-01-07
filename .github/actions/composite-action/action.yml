@@ -1,6 +1,10 @@
 name: setup and cache action
 description: 'A composite action to demonstrate usage of composite actions in GitHub Actions'
-
+inputs:
+  caching:
+    description: "Enable/disable repositories caching"
+    required: false
+    default: 'true'
 runs:
   using: 'composite'
   steps:
@@ -22,6 +26,7 @@ runs:
       shell: bash
 
     - name: Caching Gradle Dependencies
+      if: inputs.caching == 'true'
       id: cache-gradle
       uses: actions/cache@v4
       with:

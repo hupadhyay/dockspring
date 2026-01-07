@@ -1,6 +1,6 @@
 # Sequence # 13
 # Description: Using local custom composite action in the workflow.
-name: Enhanced Caching
+name: Using Custom Composite Action
 
 on:
   push:
@@ -17,6 +17,9 @@ jobs:
 
       - name: Setup and cache Gradle dependencies
         uses: ./.github/actions/composite-action
+        # Providing input parameter to the composite action
+        with:
+          caching: 'false'
 
       - name: Run Gradle tests
         # Skip the test execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run tests always.
@@ -42,6 +45,8 @@ jobs:
 
       - name: Setup and cache Gradle dependencies
         uses: ./.github/actions/composite-action
+        with:
+          caching: 'true'
 
       - name: Run Gradle Build
         # Skip the build execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run build always.
