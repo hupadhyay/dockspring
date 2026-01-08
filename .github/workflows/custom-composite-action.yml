@@ -23,7 +23,7 @@ jobs:
           caching: 'false'
 
       - name: Run Tests
-        run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.gradle-version }}"
+        run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.cache-used }}"
 
       - name: Run Gradle tests
         # Skip the test execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run tests always.
@@ -54,7 +54,7 @@ jobs:
           caching: 'true'
 
       - name: Run Tests
-        run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.gradle-version }}"
+        run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.cache-used }}"
 
       - name: Run Gradle Build
         # Skip the build execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run build always.
