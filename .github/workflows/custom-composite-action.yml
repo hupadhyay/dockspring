@@ -22,6 +22,7 @@ jobs:
         with:
           caching: 'false'
 
+        # Output the value returned from the composite action
       - name: Composite Action Output
         run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.cache-used }}"
 
@@ -53,6 +54,7 @@ jobs:
         with:
           caching: 'true'
 
+      # Output the value returned from the composite action
       - name: Composite Action Output
         run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.cache-used }}"
 

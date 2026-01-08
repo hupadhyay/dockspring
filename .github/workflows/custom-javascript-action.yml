@@ -1,0 +1,21 @@
+name: Using Custom JavaScript Action
+on:
+  push:
+    branches:
+      - himTech
+  workflow_dispatch:
+
+jobs:
+  greet-job:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Greet using Custom JavaScript Action
+        id: js-action-step
+        uses: ./.github/actions/javaScriptAction
+        # Providing input parameter to the JavaScript action
+        with:
+          name-greet: 'Himanshu Upadhyay'
+
+      # Output the value returned from the JavaScript action
+      - name: JavaScript Action Output
+        run: echo "JavaScript Action greeted at= ${{ steps.js-action-step.outputs.time-of-greet }}"

@@ -1,0 +1,14 @@
+name: javaScript Action
+description: 'A JavaScript action to demonstrate usage of JavaScript actions in GitHub Actions'
+inputs:
+  name-greet:
+    description: 'The name of person to greet'
+    required: false
+    default: 'Hello from JavaScript Action!'
+outputs:
+  time-of-greet:
+    description: 'The time action greeted'
+
+runs:
+  using: 'node25'
+  main: 'index.js'
