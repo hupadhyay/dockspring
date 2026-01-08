@@ -22,7 +22,7 @@ jobs:
         with:
           caching: 'false'
 
-      - name: Run Tests
+      - name: Composite Action Output
         run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.cache-used }}"
 
       - name: Run Gradle tests
@@ -53,7 +53,7 @@ jobs:
         with:
           caching: 'true'
 
-      - name: Run Tests
+      - name: Composite Action Output
         run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.cache-used }}"
 
       - name: Run Gradle Build

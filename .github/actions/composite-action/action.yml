@@ -27,11 +27,13 @@ runs:
 
     - name: Change gradle permission
       id: permission
-      # Adding of hardcoded value to the github output space. It can be replaced with gha expression value
-      run: |
-        chmod +x ./gradlew
-        echo "returnValue = 'action-output'" >> $GITHUB_OUTPUT
+      run: chmod +x ./gradlew
       # whenever 'run' property is used, we need to define in which prompt the run command to execute. selecting 'bash'
+      shell: bash
+
+      # Adding of hardcoded value to the github output space. It can be replaced with gha expression value
+    - name: Setup action output
+      run: echo "returnValue='Himanshu'" >> $GITHUB_OUTPUT
       shell: bash
 
     - name: Caching Gradle Dependencies
