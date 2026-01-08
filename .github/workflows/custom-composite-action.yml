@@ -16,10 +16,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup and cache Gradle dependencies
+        id: composite-action-step
         uses: ./.github/actions/composite-action
         # Providing input parameter to the composite action
         with:
           caching: 'false'
+
+      - name: Run Tests
+        run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.gradle-version }}"
 
       - name: Run Gradle tests
         # Skip the test execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run tests always.
@@ -44,9 +48,13 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Setup and cache Gradle dependencies
+        id: composite-action-step
         uses: ./.github/actions/composite-action
         with:
           caching: 'true'
+
+      - name: Run Tests
+        run: echo "Output from the composite action= ${{ steps.composite-action-step.outputs.gradle-version }}"
 
       - name: Run Gradle Build
         # Skip the build execution if cache is hit. Gradle is not supporting the command to download dependencies only.Commenting below line will run build always.
