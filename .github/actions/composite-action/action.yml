@@ -5,6 +5,11 @@ inputs:
     description: "Enable/disable repositories caching"
     required: false
     default: 'true'
+outputs:
+  cache-used:
+    description: Whether the cache was used or not
+    value: ${{ steps.permission.outputs.returnValue }}
+
 runs:
   using: 'composite'
   steps:
@@ -21,7 +26,11 @@ runs:
         cache-read-only: false
 
     - name: Change gradle permission
-      run: chmod +x ./gradlew
+      id: permission
+      # Adding of hardcoded value to the github output space. It can be replaced with gha expression value
+      run: |
+        chmod +x ./gradlew
+        echo "returnValue = 'action-output'" >> $GITHUB_OUTPUT
       # whenever 'run' property is used, we need to define in which prompt the run command to execute. selecting 'bash'
       shell: bash
 
