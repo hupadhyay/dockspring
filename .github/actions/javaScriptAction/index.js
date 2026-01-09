@@ -1,5 +1,5 @@
-import core as core from "@actions/core";
-import github as github from "@actions/github";
+import core from "@actions/core";
+import github from "@actions/github";
 
 function run() {
     try {
