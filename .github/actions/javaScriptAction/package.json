@@ -1,5 +1,5 @@
 {
-  "name": "javascriptaction",
+  "name": "java-script-action",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Himanshu Upadhyay",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "@actions/core": "^2.0.2",
     "@actions/github": "^7.0.0"
