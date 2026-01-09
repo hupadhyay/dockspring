@@ -9,6 +9,9 @@ jobs:
   greet-job:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v4
+
       - name: Greet using Custom JavaScript Action
         id: js-action-step
         uses: ./.github/actions/javaScriptAction
