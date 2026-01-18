@@ -1,0 +1,21 @@
+# Sequence # 15
+# Description: Using custom composite action using docker in the workflow.
+name: Using Custom Composite Action
+
+on:
+  push:
+    branches:
+      - himTech
+  workflow_dispatch:
+
+jobs:
+  run-action:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout application repository
+        uses: actions/checkout@v4
+
+      - name: Run my Docker action
+        uses: ./
+        with:
+          name: Himanshu

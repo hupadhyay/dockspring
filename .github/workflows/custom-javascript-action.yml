@@ -1,3 +1,5 @@
+# Sequence # 14
+# Description: Using custom composite action using java-script in the workflow.
 name: Using Custom JavaScript Action
 on:
   push:
