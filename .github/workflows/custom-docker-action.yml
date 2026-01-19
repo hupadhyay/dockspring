@@ -1,6 +1,6 @@
 # Sequence # 15
 # Description: Using custom composite action using docker in the workflow.
-name: Using Custom Composite Action
+name: Using Custom Docker Action
 
 on:
   push:
@@ -15,7 +15,12 @@ jobs:
       - name: Checkout application repository
         uses: actions/checkout@v4
 
-      - name: Run my Docker action
-        uses: ./
+      - name: Run custom Spring Boot build action
+        id: build
+        uses: ./.github/actions/spring-boot-build
+
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: Himanshu
+          name: spring-boot-app
+          path: ${{ steps.build.outputs.artifact_path }}

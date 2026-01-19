@@ -1,9 +1,12 @@
-FROM alpine:3.19
+FROM eclipse-temurin:21-jdk
 
-# Install dependencies
-RUN apk add --no-cache bash
+# Install tools
+RUN apt-get update && apt-get install -y bash unzip
 
-# Copy your script
+# Set workdir
+WORKDIR /workspace
+
+# Copy entrypoint
 COPY entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 

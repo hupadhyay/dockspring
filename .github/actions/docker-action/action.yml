@@ -1,15 +1,16 @@
-name: "My Custom Docker Action"
-description: "Example custom GitHub Action using Docker"
+name: "Spring Boot Gradle Build Action"
+description: "Builds a Spring Boot project using Gradle inside Docker"
 author: "Himanshu"
 
 inputs:
-  name:
-    description: "Name to greet"
-    required: false
-    default: "World"
+  java-version:
+    description: "Java version to use"
+    default: "21"
+
+outputs:
+  artifact_path:
+    description: "Path to the built Spring Boot JAR"
 
 runs:
   using: "docker"
   image: "Dockerfile"
-  args:
-    - ${{ inputs.name }}
