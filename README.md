@@ -23,3 +23,6 @@
 ### 13. Custom Composite Actions (custom-composite-action.yml, actions/composite-action/action.yml)
 ### 14. Demonstration of custom java-script action (custom-javascript-action.yml, actions/javascript-action/action.yml, actions/javascript-action/index.js)
 ### 15. Demonstration of custom docker-container action (custom-docker-action.yml, actions/docker-action/Dockerfile, actions/docker-action/entrypoint.sh, actions/docker-action/action.yml)
+
+## Readtime scenarios
+### Create Release Build using GHA (release-app.yml)

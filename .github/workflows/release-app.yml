@@ -1,0 +1,56 @@
+name: Release Application Workflow
+description: Release Application Workflow
+author: Himanshu Upadhyay
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., r26.01)'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  create_release:
+    env:
+      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      RELEASE_BRANCH: "r" + ${{ github.event.inputs.version }}
+      TAG_NAME: "v" +  ${{ github.event.inputs.version }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for tags
+
+      - name: Configure Git
+        run: |
+          git config --local user.name "Himanshu Upadhyay"
+          git config --local user.email "upadhyayhimanshuk@johndeere.com"
+
+      - name: Name of release branch and tag
+        run: |
+          echo "Release Branch: $RELEASE_BRANCH"
+          echo "Tag Name: $TAG_NAME"
+
+      - name: Create Release Branch
+        run: |
+          git checkout -b $RELEASE_BRANCH
+          git push origin $RELEASE_BRANCH
+
+      - name: Create Tag
+        run: |
+          git tag $TAG_NAME
+          git push origin $TAG_NAME
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        with:
+          tag_name: ${{ env.TAG_NAME }}
+          name: Release ${{ env.TAG_NAME }}
+          body: "Release created for version ${{ github.event.inputs.version }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
