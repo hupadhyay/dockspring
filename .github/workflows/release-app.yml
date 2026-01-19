@@ -17,8 +17,8 @@ jobs:
   create_release:
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      RELEASE_BRANCH: "r" + ${{ github.event.inputs.version }}
-      TAG_NAME: "v" +  ${{ github.event.inputs.version }}
+      RELEASE_BRANCH: "r${{ github.event.inputs.version }}"
+      TAG_NAME: "v${{ github.event.inputs.version }}"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
