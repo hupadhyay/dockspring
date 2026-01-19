@@ -17,7 +17,7 @@ jobs:
 
       - name: Run custom Spring Boot build action
         id: build
-        uses: ./.github/actions/spring-boot-build
+        uses: ./.github/actions/docker-action
 
       - name: Upload JAR artifact
         uses: actions/upload-artifact@v4
