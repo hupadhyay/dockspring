@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
     inputs:
       version:
-        description: 'Version to release (e.g., r26.01)'
+        description: 'Version to release (e.g., 26.01)'
         required: true
         type: string
 
@@ -38,12 +38,15 @@ jobs:
       - name: Create Release Branch
         run: |
           git checkout -b $RELEASE_BRANCH
+          git commit --allow-empty -m "#NoCard [GHA] Creating release branch $RELEASE_BRANCH"
           git push origin $RELEASE_BRANCH
 
       - name: Create Tag
         run: |
           git tag $TAG_NAME
+          git commit --allow-empty -m "#NoCard [GHA] Creating tag $TAG_NAME"
           git push origin $TAG_NAME
+          git describe --tags
 
       - name: Create GitHub Release
         uses: actions/create-release@v1
