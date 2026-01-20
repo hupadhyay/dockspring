@@ -1,6 +1,5 @@
 name: Release Application Workflow
 description: Release Application Workflow
-author: 'Himanshu Upadhyay'
 
 on:
   workflow_dispatch:
